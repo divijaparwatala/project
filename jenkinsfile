@@ -1,21 +1,28 @@
-pipeline{
-  agent any
-  stages{
-    stage('Checkout'){
-      steps{
-        git 'https://github.com/divijaparwatala/project.git'
-      }
+pipeline {
+    agent any
+    
+    triggers {
+        pollSCM('H/15 * * * *')
     }
-    stage('Validate'){
-      steps{
-        echo "Checking existence...."
-        sh 'ls -1 registration.html'
-      }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/divijaparwatala/project.git'
+            }
+        }
+
+        stage('Validate') {
+            steps {
+                echo "Checking existence...."
+                sh 'ls -1 registration.html'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo "Deploying (simulated)"
+            }
+        }
     }
-    stage('Deploy'){
-      steps{
-        echo "Deploying (simulated)"
-      }
-    }
-  }
 }
