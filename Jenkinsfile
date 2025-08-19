@@ -13,7 +13,7 @@ pipeline {
             steps {
                 echo 'No build needed for static HTML'
                 // If you want, add simple checks here, like listing files
-                sh 'dir'  // for Windows agents
+                bat 'dir'  // for Windows agents
                 // or 'ls -la' for Linux agents
             }
         }
