@@ -1,0 +1,21 @@
+pipeline{
+  agent any
+  stages{
+    stage('Checkout'){
+      steps{
+        git 'https://github.com/divijaparwatala/project.git'
+      }
+    }
+    stage('Validate'){
+      steps{
+        echo "Checking existence...."
+        sh 'ls -1 registration.html'
+      }
+    }
+    stage('Deploy'){
+      steps{
+        echo "Deploying (simulated)"
+      }
+    }
+  }
+}
