@@ -4,32 +4,32 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Checkout your git repo
+                // Pull code from the repo
                 checkout scm
             }
         }
 
         stage('Build') {
             steps {
-                echo 'No build needed for static HTML'
-                // If you want, add simple checks here, like listing files
-                bat 'dir'  // for Windows agents
-                // or 'ls -la' for Linux agents
+                // For static HTML, "build" could just be a validation or no-op
+                echo 'Building static site...'
+                // You could add linting or validation here if needed
             }
         }
 
-        stage('Test') {
+        stage('Archive') {
             steps {
-                echo 'No tests to run for static HTML'
+                // Archive the HTML files for later use
+                archiveArtifacts artifacts: '**/*.html', fingerprint: true
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Deploying HTML file...'
-                // Example: archive the HTML file as build artifact
-                archiveArtifacts artifacts: '**/*.html', fingerprint: true
-                // Or add commands to copy/deploy your HTML to server
+                // Example deploy step - adjust based on your environment
+                echo 'Deploying the HTML files...'
+                // For example, copy files to a web server or storage location
+                // sh 'scp -r * user@yourserver:/var/www/html/'
             }
         }
     }
