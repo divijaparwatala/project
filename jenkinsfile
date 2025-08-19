@@ -1,22 +1,35 @@
 pipeline {
     agent any
+
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/divijaparwatala/project.git'
+                // Checkout your git repo
+                checkout scm
             }
         }
 
-        stage('Validate') {
+        stage('Build') {
             steps {
-                echo "Checking existence...."
-                sh 'ls -1 registration.html'
+                echo 'No build needed for static HTML'
+                // If you want, add simple checks here, like listing files
+                sh 'dir'  // for Windows agents
+                // or 'ls -la' for Linux agents
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'No tests to run for static HTML'
             }
         }
 
         stage('Deploy') {
             steps {
-                echo "Deploying (simulated)"
+                echo 'Deploying HTML file...'
+                // Example: archive the HTML file as build artifact
+                archiveArtifacts artifacts: '**/*.html', fingerprint: true
+                // Or add commands to copy/deploy your HTML to server
             }
         }
     }
